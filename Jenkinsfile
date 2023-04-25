@@ -26,7 +26,7 @@ pipeline {
                 publishers: [
                     sshPublisherDesc(
                         configName: "elykp.com",
-                        transfers: [sshTransfer(sourceFiles: 'dist/**/*', remoteDirectory: "kyllo")],
+                        transfers: [sshTransfer(sourceFiles: 'dist/**/*', remoteDirectory: "kyllo", cleanRemote: true)],
                         verbose: true,
                     )
                     ]
