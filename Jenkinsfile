@@ -20,13 +20,17 @@ pipeline {
         }
         stage('Copy artifacts to VPS') {
             steps {
-                sshagent(credentials: ['elykp-ssh']) {
-                    script {
-                        def remoteDir = '~/kyllo'
-                        sshCommand remoteUser: 'kyle', remoteHost: 'elykp.com', command: "mkdir -p ${remoteDir}"
-                        sshPut from: 'dist/', into: remoteDir, remote: true
-                    }
-                }
+                sshPublisher(
+                continueOnError: false, 
+                failOnError: true,
+                publishers: [
+                    sshPublisherDesc(
+                        configName: "elykp.com",
+                        transfers: [sshTransfer(sourceFiles: 'dist/*', remoteDirectory: "/home/kyle/kyllo")],
+                        verbose: true,
+                    )
+                    ]
+                )
             }
         }
     }
