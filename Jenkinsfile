@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Copy artifacts to VPS') {
             steps {
-                sshagent(['elykp.com']) {
+                sshagent(['elykp-ssh']) {
                     script {
                         def remoteDir = '~/kyllo'
                         sshCommand remoteUser: 'kyle', remoteHost: 'elykp.com', command: "mkdir -p ${remoteDir}"
