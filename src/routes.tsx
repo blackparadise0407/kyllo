@@ -7,6 +7,7 @@ import { AppLayout } from './layouts/app-layout'
 
 const Login = lazy(() => import('@/pages/login/Login'))
 const Register = lazy(() => import('@/pages/register/Register'))
+const BoardList = lazy(() => import('@/pages/board-list/BoardList'))
 
 export const routeKey = {
   home: '/',
@@ -24,7 +25,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <div>App</div>,
+        element: <BoardList />,
       },
     ],
   },

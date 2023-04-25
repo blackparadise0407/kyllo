@@ -1,3 +1,5 @@
+import type { Record } from 'pocketbase'
+
 declare global {
   interface User extends Record {
     username: string
