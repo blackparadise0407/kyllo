@@ -19,9 +19,6 @@ pipeline {
             }
         }
         stage('Copy artifacts to VPS') {
-            when {
-                branch 'master'
-            }
             steps {
                 sshagent(['elykp.com']) {
                     script {
