@@ -5,6 +5,9 @@ pipeline {
             args '-u root'
         }
     }
+    environment {
+        VITE_APP_PB_URL = "https://api.elykp.com"
+    }
 
     stages {
         stage('Checkout') {
