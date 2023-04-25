@@ -1,20 +1,33 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:16-alpine'
+            args '-u root'
+        }
+    }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
-                echo "Building...."
+                sh 'yarn'
+                sh 'yarn build'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
+        stage('Copy artifacts to VPS') {
+            when {
+                branch 'master'
             }
-        }
-        stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sshagent(['elykp.com']) {
+                    def remoteDir = '~/kyllo'
+                    sshCommand remoteUser: 'kyle', remoteHost: 'elykp.com', command: "mkdir -p ${remoteDir}"
+                    sshPut from: 'dist/', into: remoteDir, remote: true
+                }
             }
         }
     }
