@@ -24,9 +24,11 @@ pipeline {
             }
             steps {
                 sshagent(['elykp.com']) {
-                    def remoteDir = '~/kyllo'
-                    sshCommand remoteUser: 'kyle', remoteHost: 'elykp.com', command: "mkdir -p ${remoteDir}"
-                    sshPut from: 'dist/', into: remoteDir, remote: true
+                    script {
+                        def remoteDir = '~/kyllo'
+                        sshCommand remoteUser: 'kyle', remoteHost: 'elykp.com', command: "mkdir -p ${remoteDir}"
+                        sshPut from: 'dist/', into: remoteDir, remote: true
+                    }
                 }
             }
         }
