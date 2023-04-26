@@ -17,6 +17,40 @@ declare global {
     message: string
     variant: ToastVariant
   }
+
+  interface Board extends Record {
+    title: string
+    description: string
+    owner: string
+    members: string[]
+    private: boolean
+    cover: string
+    lists: string[]
+    cards: string[]
+    expand: {
+      cards?: Card[]
+      lists?: List[]
+      owner?: User
+      members?: User[]
+    }
+  }
+
+  interface List extends Record {
+    title: string
+    rank: string
+    board: string
+    creator: string
+  }
+
+  interface Card extends Record {
+    title: string
+    attachments: string[]
+    creator: string
+    assignees: string[]
+    rank: string
+    board: string
+    list: string
+  }
 }
 
 export {}

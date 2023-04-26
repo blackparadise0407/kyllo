@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     'react-refresh/only-export-components': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     'no-empty': ['error', { allowEmptyCatch: true }],
     '@typescript-eslint/no-empty-function': [
       'error',

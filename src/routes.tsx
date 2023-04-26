@@ -8,6 +8,7 @@ import { AppLayout } from './layouts/app-layout'
 const Login = lazy(() => import('@/pages/login/Login'))
 const Register = lazy(() => import('@/pages/register/Register'))
 const BoardList = lazy(() => import('@/pages/board-list/BoardList'))
+const BoardDetail = lazy(() => import('@/pages/board-detail/BoardDetail'))
 
 export const routeKey = {
   home: '/',
@@ -15,6 +16,7 @@ export const routeKey = {
   register: '/register',
   forgotpassword: '/forgot-password',
   notfound: '*',
+  boardId: (id: string) => `/${id}`,
 } as const
 
 export const routes: RouteObject[] = [
@@ -26,6 +28,10 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <BoardList />,
+      },
+      {
+        path: ':id',
+        element: <BoardDetail />,
       },
     ],
   },
