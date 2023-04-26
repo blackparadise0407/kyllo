@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
+import { DndContext, type DragEndEvent } from '@dnd-kit/core'
 
 import { queryKeys } from '@/lib/query'
 import { groupBy } from '@/helpers'
+import { pb } from '@/lib/pb'
 
 import List from './List'
 
@@ -21,11 +23,22 @@ export default function BoardDetail() {
     [cardsQuery.data],
   )
 
+  async function handleDragEnd(event: DragEndEvent) {
+    if (event.over) {
+      await pb.collection('cards').update(event.active.id as string, {
+        list: event.over!.id,
+      })
+      cardsQuery.refetch()
+    }
+  }
+
   return (
-    <div>
-      {sortedList?.map((it) => (
-        <List key={it.id} data={it} cards={groupedCards.get(it.id)} />
-      ))}
-    </div>
+    <DndContext onDragEnd={handleDragEnd}>
+      <div className="flex gap-5">
+        {sortedList?.map((it) => (
+          <List key={it.id} data={it} cards={groupedCards.get(it.id)} />
+        ))}
+      </div>
+    </DndContext>
   )
 }
