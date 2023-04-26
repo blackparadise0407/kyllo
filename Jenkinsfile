@@ -15,9 +15,18 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build') {
+        stage('Install dependencies') {
             steps {
                 sh 'yarn'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'yarn test'
+            }
+        }
+        stage('Build') {
+            steps {
                 sh 'yarn build'
             }
         }
