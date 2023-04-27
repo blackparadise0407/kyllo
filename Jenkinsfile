@@ -43,7 +43,7 @@ pipeline {
                                 sourceFiles: 'dist.tar.gz', 
                                 remoteDirectory: "kyllo", 
                                 cleanRemote: true, 
-                                execCommand: "tar -xzvf /home/kyle/kyllo/dist.tar.gz /home/kyle/kyllo"
+                                execCommand: "tar -xzvf ~/kyllo/dist.tar.gz ~/kyllo"
                                 )
                             ],
                             verbose: true,
