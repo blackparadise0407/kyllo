@@ -25,22 +25,29 @@ pipeline {
                 sh 'yarn test'
             }
         }
-        stage('Build') {
+        stage('Build and bundle') {
             steps {
                 sh 'yarn build'
+                sh 'tar -czvf dist.tar.gz dist/'
             }
         }
         stage('Copy artifacts to VPS') {
             steps {
                 sshPublisher(
-                continueOnError: false, 
-                failOnError: true,
-                publishers: [
-                    sshPublisherDesc(
-                        configName: "elykp.com",
-                        transfers: [sshTransfer(sourceFiles: 'dist/**/*', remoteDirectory: "kyllo", cleanRemote: true)],
-                        verbose: true,
-                    )
+                    continueOnError: false, 
+                    failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "elykp.com",
+                            transfers: [sshTransfer(
+                                sourceFiles: 'dist.tar.gz', 
+                                remoteDirectory: "kyllo", 
+                                cleanRemote: true, 
+                                execCommand: "tar -xzvf dist.tar.gz"
+                                )
+                            ],
+                            verbose: true,
+                        )
                     ]
                 )
             }
