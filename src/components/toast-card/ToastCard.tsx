@@ -38,7 +38,7 @@ export default function ToastCard({ data, onClose }: ToastCardProps) {
   return (
     <div
       className={clsx(
-        'relative alert w-[24rem] pr-10',
+        'relative alert w-[20rem] md:w-[24rem] pr-10',
         getClsFromVariant(data.variant),
       )}
     >

@@ -62,7 +62,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
   return (
     <ToastContext.Provider value={{ enqueue: handleEnqueue }}>
       {children}
-      <div className="toast">
+      <div className="toast toast-center md:toast-end">
         {toasts.map((it) => (
           <ToastCard key={it.id} data={it} onClose={handleDequeue} />
         ))}
