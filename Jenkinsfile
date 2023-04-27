@@ -25,7 +25,7 @@ pipeline {
                 sh 'yarn test'
             }
         }
-        stage('Build and bundle') {
+        stage('Build and compress') {
             steps {
                 sh 'yarn build'
                 sh 'tar -czvf dist.tar.gz dist/'
